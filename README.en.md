@@ -31,8 +31,6 @@ Place assets in the repo and reference them like this:
 ![Demo GIF](docs/demo/demo.gif)
 ```
 
-**Tip:** keep the GIF under ~5 MB, 20–30 seconds, showcasing: add episode → filter list → insights update → recommendations.
-
 ## Roadmap
 - [ ] CRUD for playbooks
 - [ ] Export / import (JSON)
