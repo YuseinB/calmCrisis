@@ -19,7 +19,6 @@ npm run dev
 ```
 
 ## Screenshots & Demo
-Place assets in the repo and reference them like this:
 
 ```markdown
 ![New Episode](docs/screenshots/new-episode.png)
