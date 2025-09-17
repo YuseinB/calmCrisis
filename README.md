@@ -22,7 +22,6 @@ npm run dev
 
 
 ![New Episode](docs/screenshots/new-episode.png)
-```markdown
 ![Episodes List](docs/screenshots/episodes.png)
 ![Insights](docs/screenshots/insights.png)
 ![Recommendations](docs/screenshots/recommend.png)
