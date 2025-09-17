@@ -21,7 +21,7 @@ npm run dev
 ## Screenshots & Demo
 
 ```markdown
-![New Episode](docs/screenshots/new-episode.png)
+![New Episode]([docs/screenshots/new-episode.png](https://github.com/YuseinB/calmcrisis/blob/b25563a0ed0f64527c2fb019076f7f41684d2d33/docs/screenshots/new-episode.png))
 ![Episodes List](docs/screenshots/episodes.png)
 ![Insights](docs/screenshots/insights.png)
 ![Recommendations](docs/screenshots/recommend.png)
