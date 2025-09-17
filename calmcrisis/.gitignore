@@ -13,7 +13,7 @@ dist-ssr
 .vite
 .env
 *.local
-README.*
+#README.*
 
 # Editor directories and files
 .vscode/*

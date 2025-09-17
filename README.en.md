@@ -20,13 +20,13 @@ npm run dev
 
 ## Screenshots & Demo
 
-```markdown
+
 ![New Episode](docs/screenshots/new-episode.png)
 ![Episodes List](docs/screenshots/episodes.png)
-![Insights](docs/screenshots/insights.png)
 ![Recommendations](docs/screenshots/recommend.png)
+```markdown
 ![PWA Install](docs/screenshots/pwa-install.png)
-
+![Insights](docs/screenshots/insights.png)
 ![Demo GIF](docs/demo/demo.gif)
 ```
 
