@@ -1,4 +1,4 @@
-# CalmCrisis (PWA, offline-first)
+# CalmCrisis (react, typescript, pwa, accessibility, autism, mental-health, offline-first)
 
 A lightweight app to quickly log crisis episodes (triggers → strategies → outcome) and get simple recommendations based on similar situations.
 
@@ -7,7 +7,7 @@ A lightweight app to quickly log crisis episodes (triggers → strategies → ou
 - Fast episode logging, filters by period/context, mini analytics.
 
 ## Demo
-[Live demo](#) • [Short video/GIF](#)
+[Live demo](https://calm-crisis.vercel.app/) • [Short video/GIF](#)
 
 ## Tech stack
 React + TypeScript, Dexie (IndexedDB), PWA (manifest + SW with graceful fallback).

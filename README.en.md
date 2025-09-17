@@ -7,7 +7,7 @@ A lightweight app to quickly log crisis episodes (triggers → strategies → ou
 - Fast episode logging, filters by period/context, mini analytics.
 
 ## Demo
-[Live demo](#) • [Short video/GIF](#)
+[Live demo](https://calm-crisis.vercel.app/) • [Short video/GIF](#)
 
 ## Tech stack
 React + TypeScript, Dexie (IndexedDB), PWA (manifest + SW with graceful fallback).
