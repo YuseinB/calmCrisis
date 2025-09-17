@@ -11,7 +11,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "sonner";
 import { toast } from "sonner";
 import { CheckCircle, Plus, List, BookOpen, Home, Filter, Languages } from "lucide-react";
 
