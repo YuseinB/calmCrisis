@@ -812,7 +812,7 @@ export default function CalmCrisisApp() {
                 {tab === "playbooks" && (
                     <Card>
                         <CardContent className="py-10 text-center opacity-70">
-                            (Soon) {lang === 'bg' ? 'Плейбуковете ще добавим следва — започваме с базов CRUD.' : 'Playbooks coming next — starting with basic CRUD.'}
+                            (Soon) {lang === 'bg' ? 'Следва добавяне на плейбукове — започваме с базов CRUD.' : 'Playbooks coming next — starting with basic CRUD.'}
                         </CardContent>
                     </Card>
                 )}
