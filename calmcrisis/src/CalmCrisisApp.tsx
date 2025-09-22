@@ -110,6 +110,7 @@ const DEFAULT_STRINGS: Record<Lang, Dict> = {
         no_recs: "Все още няма препоръки за този контекст/час.",
         start: "Стартирай",
         language: "Език",
+        Breathing_exercise: "Дихателно упражнение",
     },
     en: {
         home: "Home",
@@ -159,6 +160,7 @@ const DEFAULT_STRINGS: Record<Lang, Dict> = {
         no_recs: "No recommendations yet for this context/hour.",
         start: "Start",
         language: "Language",
+        Breathing_exercise: "Breathing exercise",
     }
 };
 

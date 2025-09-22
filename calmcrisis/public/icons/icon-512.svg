@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9FD0F3"/>
+      <stop offset="100%" stop-color="#5AA2D6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded gradient background -->
+  <rect x="8" y="8" width="496" height="496" rx="64" ry="64" fill="url(#bgGrad)"/>
+
+  <!-- White ring -->
+  <circle cx="256" cy="200" r="130" fill="none" stroke="#FFFFFF" stroke-width="24"/>
+
+  <!-- Check mark -->
+  <path d="M 206 199 L 244 237 L 318 163"
+        fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- App name -->
+  <text x="256" y="405" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif"
+        font-size="76" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">CalmCrisis</text>
+</svg>
