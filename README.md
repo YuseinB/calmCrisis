@@ -14,6 +14,7 @@ React + TypeScript, Dexie (IndexedDB), PWA (manifest + SW with graceful fallback
 
 ## Run locally
 ```bash
+cd calmcrisis
 npm i
 npm run dev
 ```
