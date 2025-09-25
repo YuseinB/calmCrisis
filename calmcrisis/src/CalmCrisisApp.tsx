@@ -62,7 +62,7 @@ function Modal({
                 <div className="p-4 pt-0 flex justify-end">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
+                        className="px-4 py-2 rounded-xl bg-secondary text-white hover:bg-secondary/80"
                     >
                         OK
                     </button>
@@ -103,7 +103,7 @@ function getStrategyGuide(name: string, lang: "bg" | "en") {
                 steps: [
                     "Преместете се в по-спокойно, приглушено пространство.",
                     "Намалете светлина/шум (затворете врата/прозорци).",
-                    "Осигурете любима успокояваща активност (книга, weighted blanket, любима игра).",
+                    "Осигурете любима успокояваща активност (книга, любимо одеяло, любима игра).",
                     "Задайте таймер за 5–10 минути и наблюдавайте.",
                 ],
             };
