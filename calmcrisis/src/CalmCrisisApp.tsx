@@ -44,12 +44,12 @@ function Modal({
     if (!open) return null;
     return createPortal(
         <div
-            className="fixed inset-0 z-[1000] flex items-center justify-center"
+            className="fixed inset-0 z-[99999] flex items-center justify-center"
             aria-modal="true"
             role="dialog"
         >
             <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-            <div className="relative z-[1001] w-[92vw] max-w-md rounded-2xl bg-white shadow-xl">
+            <div className="relative z-[1000000] w-[92vw] max-w-md rounded-2xl bg-white shadow-xl">
                 <div className="p-4 border-b flex items-center justify-between">
                     <h3 className="text-lg font-semibold">{title}</h3>
                     <button
@@ -827,6 +827,7 @@ function Recommend({ currentContext }: { currentContext: Episode["context"] }) {
                         <button
                             className="px-4 py-2 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80"
                             onClick={() => setActive({ name: r.name })}
+                            onTouchStart={(e) => { e.stopPropagation(); }}
                         >
                             {t("start")}
                         </button>
