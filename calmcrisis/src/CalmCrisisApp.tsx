@@ -825,6 +825,7 @@ function Recommend({ currentContext }: { currentContext: Episode["context"] }) {
                             </div>
                         </div>
                         <button
+                            variant="secondary"
                             //className="px-3 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
                             onClick={() => setActive({ name: r.name })}
                         >
