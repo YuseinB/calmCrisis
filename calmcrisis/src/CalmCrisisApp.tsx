@@ -62,7 +62,7 @@ function Modal({
                 <div className="p-4 pt-0 flex justify-end">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 rounded-xl bg-secondary text-white hover:bg-secondary/80"
+                        className="px-4 py-2 rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     >
                         OK
                     </button>
@@ -825,8 +825,7 @@ function Recommend({ currentContext }: { currentContext: Episode["context"] }) {
                             </div>
                         </div>
                         <button
-                            variant="secondary"
-                            //className="px-3 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
+                            className="px-4 py-2 rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/80"
                             onClick={() => setActive({ name: r.name })}
                         >
                             {t("start")}
