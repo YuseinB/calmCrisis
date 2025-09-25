@@ -14,6 +14,7 @@ import { Slider } from "@/components/ui/slider";
 import { Toaster } from "sonner";
 import { toast } from "sonner";
 import { CheckCircle, Plus, List, BookOpen, Home, Filter, Languages } from "lucide-react";
+import { createPortal } from "react-dom";
 
 /**
  * CalmCrisis — React (PWA-ready) MVP with i18n (BG/EN)
@@ -24,6 +25,338 @@ import { CheckCircle, Plus, List, BookOpen, Home, Filter, Languages } from "luci
  *        - Silently falls back when files are absent (no errors in sandbox).
  *      Preserves previous functionality (episodes, insights, recommender, PWA helpers) + language switcher.
  */
+
+// ------------------------------ Modal ---------------------------------
+// Lightweight Modal (no deps)
+
+
+function Modal({
+    open,
+    title,
+    children,
+    onClose,
+}: {
+    open: boolean;
+    title: string;
+    children: React.ReactNode;
+    onClose: () => void;
+}) {
+    if (!open) return null;
+    return createPortal(
+        <div
+            className="fixed inset-0 z-[1000] flex items-center justify-center"
+            aria-modal="true"
+            role="dialog"
+        >
+            <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+            <div className="relative z-[1001] w-[92vw] max-w-md rounded-2xl bg-white shadow-xl">
+                <div className="p-4 border-b flex items-center justify-between">
+                    <h3 className="text-lg font-semibold">{title}</h3>
+                    <button
+                        onClick={onClose}
+                        className="px-3 py-1 rounded-xl border hover:bg-gray-50"
+                        aria-label="Close"
+                    >✕</button>
+                </div>
+                <div className="p-4">{children}</div>
+                <div className="p-4 pt-0 flex justify-end">
+                    <button
+                        onClick={onClose}
+                        className="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
+                    >
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>,
+        document.body
+    );
+}
+
+
+function getStrategyGuide(name: string, lang: "bg" | "en") {
+    const n = name.toLowerCase();
+
+    const isBreathing = n.includes("дихател") || n.includes("breath");
+    const isQuiet = n.includes("тиха") || n.includes("quiet");
+    const isHeadset = n.includes("шумопотис") || n.includes("noise") || n.includes("headphone");
+    const isSensory = n.includes("сензор") || n.includes("sensory");
+    const isChange = n.includes("смяна") || n.includes("change");
+
+    if (lang === "bg") {
+        if (isBreathing) {
+            return {
+                title: "Дихателно упражнение",
+                steps: [
+                    "Седнете удобно. Дръжте гърба изправен, крака на пода.",
+                    "Вдишайте бавно през носа 4 секунди.",
+                    "Задръжте 4 секунди.",
+                    "Издишайте бавно през устата 6–8 секунди (може през сламка/чаша).",
+                    "Повторете 6–10 цикъла (около 2–3 минути).",
+                    "Оценете как се чувствате; продължете още 1–2 минути при нужда."
+                ],
+            };
+        }
+        if (isQuiet) {
+            return {
+                title: "Тиха стая",
+                steps: [
+                    "Преместете се в по-спокойно, приглушено пространство.",
+                    "Намалете светлина/шум (затворете врата/прозорци).",
+                    "Осигурете любима успокояваща активност (книга, weighted blanket, любима игра).",
+                    "Задайте таймер за 5–10 минути и наблюдавайте.",
+                ],
+            };
+        }
+        if (isHeadset) {
+            return {
+                title: "Шумопотискащи слушалки",
+                steps: [
+                    "Поставете слушалките; пуснете бял шум или тиха любима музика.",
+                    "Ограничете разговора до кратки, ясни изречения.",
+                    "Останете близо, но неинвазивно; дайте 5–10 минути спокойствие.",
+                ],
+            };
+        }
+        if (isSensory) {
+            return {
+                title: "Сензорна пауза",
+                steps: [
+                    "Предложете кратка двигателна активност (разтягане, разходка, „дълбоки прегръдки“ при съгласие).",
+                    "Използвайте сензорни помощни средства (стим играчка, тежка жилетка, дъвчащ аксесоар).",
+                    "Върнете се към задачата само ако напрежението спадне.",
+                ],
+            };
+        }
+        if (isChange) {
+            return {
+                title: "Смяна на средата",
+                steps: [
+                    "Преминете в по-тихо/по-предсказуемо място.",
+                    "Намалете стимулите (светлина/звук/хора).",
+                    "Дайте ясна структура: какво следва сега (1–2 стъпки).",
+                ],
+            };
+        }
+        return {
+            title: `Стъпки: ${name}`,
+            steps: [
+                "Намалете стимули (шум/светлина/тълпа).",
+                "Говорете бавно и кратко, без допълнителни въпроси.",
+                "Предложете 2–3 спокойни опции (почивка, вода, тих ъгъл).",
+                "Оценете след 5 минути и коригирайте.",
+            ],
+        };
+    }
+
+    // EN
+    if (isBreathing) {
+        return {
+            title: "Breathing exercise",
+            steps: [
+                "Sit comfortably, back straight, feet on the floor.",
+                "Inhale slowly through the nose for 4s.",
+                "Hold for 4s.",
+                "Exhale gently through the mouth for 6–8s (straw/cup optional).",
+                "Repeat 6–10 cycles (~2–3 min).",
+                "Check in; continue 1–2 more minutes if needed.",
+            ],
+        };
+    }
+    if (isQuiet) {
+        return {
+            title: "Quiet room",
+            steps: [
+                "Move to a calmer, dimmer space.",
+                "Reduce light/noise (door/windows).",
+                "Offer a preferred calming activity (book, weighted blanket, favorite toy).",
+                "Set a 5–10 minute timer and observe.",
+            ],
+        };
+    }
+    if (isHeadset) {
+        return {
+            title: "Noise-cancelling headphones",
+            steps: [
+                "Put the headset on; play white noise or quiet preferred music.",
+                "Use short, clear sentences; avoid extra questions.",
+                "Stay nearby but non-intrusive; give 5–10 minutes.",
+            ],
+        };
+    }
+    if (isSensory) {
+        return {
+            title: "Sensory break",
+            steps: [
+                "Offer brief movement (stretching, short walk, deep pressure if consented).",
+                "Use sensory aids (fidget toy, weighted vest, chew accessory).",
+                "Return only if arousal drops.",
+            ],
+        };
+    }
+    if (isChange) {
+        return {
+            title: "Change environment",
+            steps: [
+                "Move to a quieter/more predictable place.",
+                "Reduce stimuli (light/sound/people).",
+                "Give a simple 1–2 step structure of what happens next.",
+            ],
+        };
+    }
+    return {
+        title: `Steps: ${name}`,
+        steps: [
+            "Lower stimuli (noise/light/crowd).",
+            "Speak slowly, clearly, without extra questions.",
+            "Offer 2–3 calming options (rest, water, quiet corner).",
+            "Reassess after 5 minutes and adjust.",
+        ],
+    };
+}
+
+function getStrategyGuide(name: string, lang: "bg" | "en") {
+  const n = name.toLowerCase();
+
+  const isBreathing = n.includes("дихател") || n.includes("breath");
+  const isQuiet    = n.includes("тиха") || n.includes("quiet");
+  const isHeadset  = n.includes("шумопотис") || n.includes("noise") || n.includes("headphone");
+  const isSensory  = n.includes("сензор") || n.includes("sensory");
+  const isChange   = n.includes("смяна") || n.includes("change");
+
+  if (lang === "bg") {
+    if (isBreathing) {
+      return {
+        title: "Дихателно упражнение",
+        steps: [
+          "Седнете удобно. Дръжте гърба изправен, крака на пода.",
+          "Вдишайте бавно през носа 4 секунди.",
+          "Задръжте 4 секунди.",
+          "Издишайте бавно през устата 6–8 секунди (може през сламка/чаша).",
+          "Повторете 6–10 цикъла (около 2–3 минути).",
+          "Оценете как се чувствате; продължете още 1–2 минути при нужда."
+        ],
+      };
+    }
+    if (isQuiet) {
+      return {
+        title: "Тиха стая",
+        steps: [
+          "Преместете се в по-спокойно, приглушено пространство.",
+          "Намалете светлина/шум (затворете врата/прозорци).",
+          "Осигурете любима успокояваща активност (книга, weighted blanket, любима игра).",
+          "Задайте таймер за 5–10 минути и наблюдавайте.",
+        ],
+      };
+    }
+    if (isHeadset) {
+      return {
+        title: "Шумопотискащи слушалки",
+        steps: [
+          "Поставете слушалките; пуснете бял шум или тиха любима музика.",
+          "Ограничете разговора до кратки, ясни изречения.",
+          "Останете близо, но неинвазивно; дайте 5–10 минути спокойствие.",
+        ],
+      };
+    }
+    if (isSensory) {
+      return {
+        title: "Сензорна пауза",
+        steps: [
+          "Предложете кратка двигателна активност (разтягане, разходка, „дълбоки прегръдки“ при съгласие).",
+          "Използвайте сензорни помощни средства (стим играчка, тежка жилетка, дъвчащ аксесоар).",
+          "Върнете се към задачата само ако напрежението спадне.",
+        ],
+      };
+    }
+    if (isChange) {
+      return {
+        title: "Смяна на средата",
+        steps: [
+          "Преминете в по-тихо/по-предсказуемо място.",
+          "Намалете стимулите (светлина/звук/хора).",
+          "Дайте ясна структура: какво следва сега (1–2 стъпки).",
+        ],
+      };
+    }
+    return {
+      title: `Стъпки: ${name}`,
+      steps: [
+        "Намалете стимули (шум/светлина/тълпа).",
+        "Говорете бавно и кратко, без допълнителни въпроси.",
+        "Предложете 2–3 спокойни опции (почивка, вода, тих ъгъл).",
+        "Оценете след 5 минути и коригирайте.",
+      ],
+    };
+  }
+
+  // EN
+  if (isBreathing) {
+    return {
+      title: "Breathing exercise",
+      steps: [
+        "Sit comfortably, back straight, feet on the floor.",
+        "Inhale slowly through the nose for 4s.",
+        "Hold for 4s.",
+        "Exhale gently through the mouth for 6–8s (straw/cup optional).",
+        "Repeat 6–10 cycles (~2–3 min).",
+        "Check in; continue 1–2 more minutes if needed.",
+      ],
+    };
+  }
+  if (isQuiet) {
+    return {
+      title: "Quiet room",
+      steps: [
+        "Move to a calmer, dimmer space.",
+        "Reduce light/noise (door/windows).",
+        "Offer a preferred calming activity (book, weighted blanket, favorite toy).",
+        "Set a 5–10 minute timer and observe.",
+      ],
+    };
+  }
+  if (isHeadset) {
+    return {
+      title: "Noise-cancelling headphones",
+      steps: [
+        "Put the headset on; play white noise or quiet preferred music.",
+        "Use short, clear sentences; avoid extra questions.",
+        "Stay nearby but non-intrusive; give 5–10 minutes.",
+      ],
+    };
+  }
+  if (isSensory) {
+    return {
+      title: "Sensory break",
+      steps: [
+        "Offer brief movement (stretching, short walk, deep pressure if consented).",
+        "Use sensory aids (fidget toy, weighted vest, chew accessory).",
+        "Return only if arousal drops.",
+      ],
+    };
+  }
+  if (isChange) {
+    return {
+      title: "Change environment",
+      steps: [
+        "Move to a quieter/more predictable place.",
+        "Reduce stimuli (light/sound/people).",
+        "Give a simple 1–2 step structure of what happens next.",
+      ],
+    };
+  }
+  return {
+    title: `Steps: ${name}`,
+    steps: [
+      "Lower stimuli (noise/light/crowd).",
+      "Speak slowly, clearly, without extra questions.",
+      "Offer 2–3 calming options (rest, water, quiet corner).",
+      "Reassess after 5 minutes and adjust.",
+    ],
+  };
+}
+
+// ------------------------------ Modal ---------------------------------
 
 // ------------------------------ Dexie DB ------------------------------
 export interface Episode {
@@ -591,8 +924,10 @@ function Insights() {
 
 // ------------------------------ Recommender ------------------------------
 function Recommend({ currentContext }: { currentContext: Episode["context"] }) {
-    const { t } = useI18n();
+    const { t, lang } = useI18n();
     const [items, setItems] = useState<Episode[]>([]);
+    const [active, setActive] = useState<{ name: string } | null>(null);
+
     useEffect(() => {
         db.episodes.toArray().then(setItems);
     }, []);
@@ -618,20 +953,59 @@ function Recommend({ currentContext }: { currentContext: Episode["context"] }) {
     }, [similar]);
 
     if (ranked.length === 0) return <div className="opacity-70">{t("no_recs")}</div>;
+
     return (
-        <div className="flex flex-col gap-2">
-            {ranked.map((r) => (
-                <div key={r.name} className="border rounded-xl p-3 flex items-center justify-between">
-                    <div>
-                        <div className="font-medium">{r.name}</div>
-                        <div className="text-sm opacity-70">{t("avg_success")} {r.avg}% (n={r.n})</div>
+        <>
+            <div className="flex flex-col gap-2">
+                {ranked.map((r) => (
+                    <div key={r.name} className="border rounded-xl p-3 flex items-center justify-between">
+                        <div>
+                            <div className="font-medium">{r.name}</div>
+                            <div className="text-sm opacity-70">
+                                {t("avg_success")} {r.avg}% (n={r.n})
+                            </div>
+                        </div>
+                        <button
+                            className="px-3 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
+                            onClick={() => setActive({ name: r.name })}
+                        >
+                            {t("start")}
+                        </button>
                     </div>
-                    <Button variant="secondary">{t("start")}</Button>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+
+            {/* Modal with guide */}
+            <Modal
+                open={Boolean(active)}
+                title={active ? getStrategyGuide(active.name, lang).title : ""}
+                onClose={() => setActive(null)}
+            >
+                {active && (
+                    <div className="space-y-3">
+                        <ul className="list-disc pl-5 space-y-1">
+                            {getStrategyGuide(active.name, lang).steps.map((s, i) => (
+                                <li key={i}>{s}</li>
+                            ))}
+                        </ul>
+
+                        {/* По желание – мини таймер за дихателно упражнение */}
+                        {getStrategyGuide(active.name, lang).title.toLowerCase().includes(
+                            lang === "bg" ? "дихател" : "breath"
+                        ) && (
+                                <div className="pt-2 text-sm opacity-70">
+                                    ⏱️ Подсказка: задайте таймер 2–3 минути и наблюдавайте темпото на дишане (4–4–6/8).
+                                </div>
+                            )}
+                    </div>
+                )}
+            </Modal>
+        </>
     );
 }
+
+// ------------------------------ Recommender ------------------------------
+
 
 // ------------------------------ PWA helpers ------------------------------
 const SW_SUPPORTED = ((): boolean => {
