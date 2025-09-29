@@ -449,7 +449,7 @@ function TagMulti({
     return (
         <div className="flex flex-wrap gap-2">
             {options.map((op) => (
-                <label key={op.bg} className="flex items-center gap-2 border rounded-2xl px-3 py-1">
+                <label key={op.bg} className="inline-flex items-center gap-2 border rounded-2xl px-3 py-1">
                     <Checkbox checked={value.includes(op[lang])} onCheckedChange={(c) => onToggle(op[lang], Boolean(c))} />
                     <span>{op[lang]}</span>
                 </label>
@@ -1020,7 +1020,7 @@ export default function CalmCrisisApp() {
 
                 <div className="mb-4">
                     <Tabs value={tab} onValueChange={setTab} className="w-full">
-                        <TabsList>
+                        <TabsList className="flex">
                             <TabsTrigger value="home">{t("home")}</TabsTrigger>
                             <TabsTrigger value="new"><Plus className="w-4 h-4 mr-1" /> {t("new")}</TabsTrigger>
                             <TabsTrigger value="episodes"><List className="w-4 h-4 mr-1" /> {t("episodes")}</TabsTrigger>
