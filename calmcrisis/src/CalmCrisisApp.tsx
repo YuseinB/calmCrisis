@@ -1020,7 +1020,7 @@ export default function CalmCrisisApp() {
 
                 <div className="mb-4">
                     <Tabs value={tab} onValueChange={setTab} className="w-full">
-                        <TabsList className="flex">
+                        <TabsList>
                             <TabsTrigger value="home">{t("home")}</TabsTrigger>
                             <TabsTrigger value="new"><Plus className="w-4 h-4 mr-1" /> {t("new")}</TabsTrigger>
                             <TabsTrigger value="episodes"><List className="w-4 h-4 mr-1" /> {t("episodes")}</TabsTrigger>
