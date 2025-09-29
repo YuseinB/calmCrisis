@@ -449,7 +449,7 @@ function TagMulti({
     return (
         <div className="flex flex-wrap gap-2">
             {options.map((op) => (
-                <label key={op.bg} className="inline-flex items-center gap-2 border rounded-2xl px-3 py-1">
+                <label key={op.bg} className="flex items-center gap-2 border rounded-2xl px-3 py-1">
                     <Checkbox checked={value.includes(op[lang])} onCheckedChange={(c) => onToggle(op[lang], Boolean(c))} />
                     <span>{op[lang]}</span>
                 </label>
