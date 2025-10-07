@@ -27,7 +27,7 @@ npm run dev
 ![PWA Install](docs/screenshots/qrcode_calm-crisis.vercel.app.png)
 ```markdown
 ![Insights](docs/screenshots/insights.png)
-![Demo GIF](docs/demo/demo.gif)
+![Demo GIF](docs/demo/demo.gif) 
 ```
 
 ## Roadmap
